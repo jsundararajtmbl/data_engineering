@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1433
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "cuscal", "cuscal\cuscal.dtproj", "{45E3996E-9344-4F6E-988E-4B8BD6F214B3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45E3996E-9344-4F6E-988E-4B8BD6F214B3}.Development|Default.ActiveCfg = Development
+		{45E3996E-9344-4F6E-988E-4B8BD6F214B3}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AC90ADF1-F168-4C24-BA3D-935A44E3544F}
+	EndGlobalSection
+EndGlobal
