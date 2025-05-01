@@ -1,0 +1,878 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/4/2015 3:26:00 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="NS01WKIT216"
+  DTS:CreatorName="CORP\SundararajJ"
+  DTS:DelayValidation="True"
+  DTS:DTSID="{E7A6B474-8E40-46C9-8D59-558B86619204}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3025.39"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="Load_Zurich_Insurance"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
+  DTS:VersionBuild="424"
+  DTS:VersionGUID="{E15D5C89-3BD5-4C95-9A5F-0925943C8041}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[DataWarehouseDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DelayValidation="True"
+      DTS:DTSID="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+      DTS:ObjectName="DataWarehouseDW">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::DW_SSIS_TARGET_DB]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::DW_SSIS_TARGET_SERVER]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=NS02DB0V505;Initial Catalog=DataWarehouseDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;Application Name=SSIS-Dailler-{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}NS02DB0V505.DataWarehouseDW;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[Zurich_ins]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{60635D8F-2A2C-44B0-8AB6-D3CBA8F89245}"
+      DTS:ObjectName="Zurich_ins">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="3081"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x0022__x0022_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="\\prodsam\datawarehouse\ThirdParty\Zurich\Direct_Business_Report_by_Agency_and_Policy_Status.csv">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Policy Number&quot;"
+              DTS:DTSID="{1E879CDD-7EDB-41D2-BF1B-3F64A1743430}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Policy Status&quot;"
+              DTS:DTSID="{815B1939-8F35-4E21-ABF1-6C3386CAA16B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;RCD&quot;"
+              DTS:DTSID="{47B38AD7-85B1-4200-A329-C206BDDF6155}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Product COBE Code&quot;"
+              DTS:DTSID="{7F105C9C-D42A-4A56-814D-62A57EA3D6E2}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Product Description&quot;"
+              DTS:DTSID="{A91F4A9E-A503-45BA-927C-2B2B0068099D}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Agency Code&quot;"
+              DTS:DTSID="{A5AEF795-FC4D-4E77-AE1D-B12B55F29E96}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Agency Name&quot;"
+              DTS:DTSID="{F6A8EB23-58C2-41B6-BC0C-C90227BB16FB}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Title&quot;"
+              DTS:DTSID="{C63A70D0-952D-4B9D-AC7A-5898B3CEE43E}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;First Name&quot;"
+              DTS:DTSID="{02758EC2-9C32-4B4E-B965-193C2CF9DCAD}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Last Name&quot;"
+              DTS:DTSID="{4D8863F9-6223-451E-9EC9-13E79DD1E383}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Address&quot;"
+              DTS:DTSID="{3CBBA78F-5589-49E6-81C8-542C7B29FFE8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Suburb&quot;"
+              DTS:DTSID="{62537A47-DB3B-4477-9029-D57E6329F53B}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;State&quot;"
+              DTS:DTSID="{6DFF407E-2EE0-4514-97FB-4EA86B7AB2D8}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Post Code&quot;"
+              DTS:DTSID="{68AD9C30-CC2D-4A1E-924B-9D7C49E7FE56}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Gender&quot;"
+              DTS:DTSID="{CF93269E-D3EC-4071-8608-169D91817286}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;DOB&quot;"
+              DTS:DTSID="{D04B4580-D345-4BAF-8C32-528256D10B10}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Age&quot;"
+              DTS:DTSID="{F073C452-A6A2-4381-8F3B-6ACA11D04890}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="130"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Member Number&quot;"
+              DTS:DTSID="{FD0CC7FA-0FF6-4C17-B048-F4B9B2BD6363}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x002C_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Annual Premium&quot;"
+              DTS:DTSID="{8356E2A1-967A-4E36-ADBF-90ED2347079C}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000A_"
+              DTS:DataType="14"
+              DTS:TextQualified="True"
+              DTS:ObjectName="&quot;Sum Insured&quot;"
+              DTS:DTSID="{6EF4E3AD-2DAE-42DB-9A6B-048DC87EDE54}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3B619BB4-7265-4C51-AEB6-66B1DF5F056E}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::ArchiveFolder]  +  @[User::FileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ArchiveFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\prodsam\datawarehouse\ThirdParty\Zurich\Archive\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4C9F80F4-C00D-4FAA-A402-16311B40E516}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::SourceFolder] + &quot;Archive\\&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="ArchiveFolder">
+      <DTS:VariableValue
+        DTS:DataType="8">\\prodsam\datawarehouse\ThirdParty\Zurich\Archive\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DCBEAF85-9C7B-42A2-90B7-F71A5FDD55B1}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;BULK INSERT [DatawarehouseDW].[dbo].[normal_insur_zurich_Temp] FROM &quot; + &quot;'&quot; + @[User::SourceFilePath] + &quot;'&quot; + &quot; WITH (FIRSTROW = 2,FIELDTERMINATOR = '\&quot;,\&quot;',ROWTERMINATOR = '\n')&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="BulkInsertSQL">
+      <DTS:VariableValue
+        DTS:DataType="8">BULK INSERT [DatawarehouseDW].[dbo].[normal_insur_zurich_Temp] FROM '\\prodsam\datawarehouse\ThirdParty\Zurich\' WITH (FIRSTROW = 2,FIELDTERMINATOR = '","',ROWTERMINATOR = '
+')</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{57ACA847-D396-44A1-B19A-7DE9CA31B5CD}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="GETDATE()"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CurrentTime">
+      <DTS:VariableValue
+        DTS:DataType="7">8/16/2018 3:31:04 PM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{397CD1A3-D728-4D66-AA3A-5A984B3ADD37}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DBName">
+      <DTS:VariableValue
+        DTS:DataType="8">DataWarehouseDW</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BBA7FB1C-C882-4324-9843-335D324FAE6C}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DBServer">
+      <DTS:VariableValue
+        DTS:DataType="8">NS02DB0V505</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5D687ED5-AF1C-41B0-89F6-0D5A49F09480}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileExists">
+      <DTS:VariableValue
+        DTS:DataType="11">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BDD2A5CE-0A7B-49FD-9546-C676D0B41C50}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileName">
+      <DTS:VariableValue
+        DTS:DataType="8"
+        xml:space="preserve"></DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D774648E-5378-4E89-B7C1-60A40F4E9B1A}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::SourceFolder]  +  @[User::FileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">\\prodsam\datawarehouse\ThirdParty\Zurich\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7C6E75DE-7CD8-426B-9D21-C2153AA8F0F0}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[$Project::Zurich_file_path]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceFolder">
+      <DTS:VariableValue
+        DTS:DataType="8">\\prodsam\datawarehouse\ThirdParty\Zurich\</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Foreach file in the folder Loop Container"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:DelayValidation="True"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{F5C2041A-17CE-4543-B809-EAF374640434}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Foreach file in the folder Loop Container">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{96F078FE-88C5-4493-A217-007871982234}"
+        DTS:ObjectName="{96F078FE-88C5-4493-A217-007871982234}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::SourceFolder]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="\\prodsam\datawarehouse\ThirdParty\Zurich\" />
+            <FEFEProperty
+              FileSpec="Direct_Business_Report_by_Agency_and_Policy_Status_*.csv" />
+            <FEFEProperty
+              FileNameRetrievalType="1" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Alter temp table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Alter temp table"
+          DTS:DTSID="{4A99C690-6109-4E3C-A6AF-9F6931FF2206}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Alter temp table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+              SQLTask:SqlStatementSource="ALTER TABLE [dbo].[normal_insur_zurich_temp]  &#xA;ADD Product_ID varchar(100) NULL,&#xA;Client_ID int NULL, member_flag CHAR(1) NULL, member_status varchar(50) NULL;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Bulk Insert SQL Task"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Bulk Insert SQL Task"
+          DTS:DTSID="{B1EA8F69-8AB4-4CC6-8DD4-D718FF4AA0CC}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Bulk Insert SQL Task"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::BulkInsertSQL" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Client Matching"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Client Matching"
+          DTS:DTSID="{B598F9B9-7822-4B11-B92F-66F7819924E9}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Client Matching"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+              SQLTask:SqlStatementSource="Declare @cnt as int = 0 ,@i as int = 1,@client_id as int,@Policy_number as nvarchar(50) ,@Product_COBE_code as nvarchar(50) &#xA;&#x9;,@given_names as varchar(100),@surname as varchar(100),@date_of_birth as date,@address_line_1 as varchar(300),&#xA;&#x9;@suburb as varchar(50),@postcode as varchar(10)&#xA;&#xA;Select @cnt = count(*) from DataWarehouseDW.[dbo].[normal_insur_zurich_temp]&#xA;WHile @cnt &gt; 0 and @i &lt;= @cnt&#xA;BEGIN&#xA;&#x9;Select  @Policy_number = [Policy_Number], @Product_COBE_code=[Product_COBE_Code],@date_of_birth =  convert(date,convert(datetime,[DOB],103))&#xA;&#x9;&#x9;&#x9;,@given_names = [First_Name],@surname = [Last_Name],@address_line_1 = [Address],@suburb = [Suburb],@postcode = [Post_Code] from &#xA;&#x9;&#x9;(SELECT *,Row_number() OVER(ORDER BY Policy_number,Product_COBE_code) as Rno &#xA;&#x9;&#x9;&#x9;  FROM [DataWarehouseDW].[dbo].[normal_insur_zurich_temp]) a&#xA;&#x9;&#x9;WHERE Rno = @i&#xA;&#xA;&#xA;&#x9;Select @client_id = &#x9;Client_id from [TMB_EDW].[dbo].[fn_get_matching_client_id]&#xA;&#x9;&#x9;(1,100,NULL,NULL,@given_names,@surname,0 ,70&#x9;,@date_of_birth&#x9;&#xA;&#x9;&#x9;&#x9;,60&#x9;,@address_line_1&#x9;,@suburb,@postcode,50,NULL,0,NULL,NULL )&#xA;&#xA;&#x9;Update DataWarehouseDW.[dbo].[normal_insur_zurich_temp] set client_id = @client_id ,&#xA;&#x9;&#x9;&#x9;member_flag = CASE WHEN isnull(@client_id,0) &gt; 0 then   'Y' else 'N' end&#xA;&#x9;&#x9;&#x9;where Policy_number = @Policy_number and Product_COBE_code=@Product_COBE_code&#xA;&#x9;&#x9;&#x9;and [First_Name] = @given_names and [Last_Name] = @surname&#xA;&#xA;&#x9;Select @i = @i + 1&#xA;END&#xA;&#xA;Update DataWarehouseDW.[dbo].[normal_insur_zurich_temp] set member_status = dc.member_status ,&#xA;Product_ID = (convert(varchar(50),isnull([Policy_Number],'')) + isnull([Product_COBE_Code],''))&#xA;from TMB_EDW.dbo.dim_client dc inner join&#xA;DataWarehouseDW.[dbo].[normal_insur_zurich_temp] t on t.Client_id = dc.client_id and dc.dss_current_flag = 'Y'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Copy File to Archive"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:DelayValidation="True"
+          DTS:Description="copy File to Archive"
+          DTS:DTSID="{0b2cf3fd-2748-42af-bbfe-41ab26fbfd40}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Copy File to Archive"
+          DTS:TaskContact="File System Task;Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="User::SourceFilePath"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::ArchiveFilePath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Create Temp Table"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Create Temp Table"
+          DTS:DTSID="{fc46808b-cc48-4396-80a7-499c6bf2bfa6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Temp Table"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+              SQLTask:SqlStatementSource="IF OBJECT_ID('[dbo].[normal_insur_zurich_temp]') is NOT NULL&#xA;DROP TABLE [dbo].[normal_insur_zurich_temp]&#xA;GO&#xA;&#xA;CREATE TABLE [dbo].[normal_insur_zurich_temp] (&#xA;[Policy_Number] nvarchar(50),&#xA;[Policy_Status] nvarchar(50),&#xA;[RCD] nvarchar(50),&#xA;[Product_COBE_Code] nvarchar(50),&#xA;[Product_Description] nvarchar(50),&#xA;[Agency_Code] nvarchar(50),&#xA;[Agency_Name] nvarchar(50),&#xA;[Title] nvarchar(50),&#xA;[First_Name] nvarchar(50),&#xA;[Last_Name] nvarchar(50),&#xA;[Address] nvarchar(max),&#xA;[Suburb] nvarchar(50),&#xA;[State] nvarchar(50),&#xA;[Post_Code] nvarchar(50),&#xA;[Gender] nvarchar(50),&#xA;[DOB] nvarchar(50),&#xA;[Age] nvarchar(50),&#xA;[Member_Number] nvarchar(50),&#xA;[Annual_Premium] nvarchar(50),&#xA;[Sum_Insured] nvarchar(50)&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Delete File"
+          DTS:CreationName="Microsoft.FileSystemTask"
+          DTS:DelayValidation="True"
+          DTS:Description="Delete File"
+          DTS:DTSID="{1166d2aa-9311-490c-97d2-98b2070f9a96}"
+          DTS:ExecutableType="Microsoft.FileSystemTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete File"
+          DTS:TaskContact="File System Task;Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <FileSystemData
+              TaskOperationType="DeleteFile"
+              TaskOverwriteDestFile="True"
+              TaskSourcePath="User::SourceFilePath"
+              TaskIsSourceVariable="True"
+              TaskDestinationPath="User::ArchiveFilePath"
+              TaskIsDestinationVariable="True" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Delete Invalid data"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Delete Invalid data"
+          DTS:DTSID="{57d3697c-bf23-435d-90ff-a275cc6949ed}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Invalid data"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+              SQLTask:SqlStatementSource="Delete from [DatawarehouseDW].[dbo].[normal_insur_zurich_Temp] where Policy_Number Like '%Policy Number%'&#xA;OR Policy_Number Like '%Total%' OR Policy_Number Like '%Count%';&#xA;&#xA;Update [DatawarehouseDW].[dbo].[normal_insur_zurich_Temp] set Policy_Number = replace(Policy_Number,'&quot;',''), Address = replace(Address,'&quot;',''),&#xA;[Sum_insured] = replace([Sum_insured],'&quot;','')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Merge data"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Merge data"
+          DTS:DTSID="{d978750f-d847-4d4b-b036-27ce04a1f4f6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Merge data"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; Microsoft SQL Server 2008 R2; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+              SQLTask:SqlStatementSource="&#xA;&#x9;DECLARE @curdate AS Datetime2(0)&#xA;&#x9;DECLARE @snapshotdatekey as int&#xA;&#x9;SET @curdate = CAST(getdate() AS Datetime2(0))&#xA;&#x9;SET @snapshotdatekey = convert(int,convert(varchar(10),@curdate,112))&#xA;&#x9;INSERT INTO DataWarehouseDW.dbo.normal_insur_zurich&#xA;&#x9;&#x9;([policy_number] ,[policy_status],[RCD],[product_COBE_code],[product_description],[agency_code],[agency_name],[title]&#xA;&#x9;&#x9;,[first_name],[last_name],[address],[suburb],[state],[post_code],[gender],[date_of_birth],[age],[member_number],[annual_premium]&#xA;&#x9;&#x9;,[sum_insured],[product_id],[CLIENT_ID],[member_flag],[member_status],[snapshot_date_key] &#xA;&#x9;&#x9;,[dss_start_date],[dss_end_date],[dss_update_time],[dss_current_flag])&#xA;&#x9;&#xA;&#x9;&#x9;SELECT [Policy_Number], [Policy_Status]&#xA;&#x9;&#x9;, CONVERT(datetime2(0),isnull(RCD,''),103) , [Product_COBE_Code]&#xA;&#x9;&#x9;&#x9;,[Product_Description]&#x9;&#x9;&#x9;,[Agency_Code],  [Agency_Name], [Title], [First_Name], [Last_Name], [Address]&#xA;&#x9;&#x9;&#x9;,[Suburb], [State], [Post_Code], [Gender]&#xA;&#x9;&#x9;&#x9;, CONVERT(datetime2(0),isnull(DOB,''),103)&#xA;&#x9;&#x9;&#x9;,Convert(int,isnull([Age],0)),[Member_Number]&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;,cast(CAST(isnull([Annual_Premium],0) as money) as decimal(18,2))&#xA;&#x9;&#x9;&#x9;,cast(CAST(isnull([Sum_Insured],0) as money) as decimal(18,2))&#x9;&#x9;,[Product_ID]&#x9;&#x9;, [CLIENT_ID] &#xA;&#x9;&#x9;&#x9;&#x9;,[member_flag]&#x9;&#x9;,[member_status]  ,@snapshotdatekey&#x9;&#x9;,@curdate&#xA;&#x9;&#x9;&#x9;,'2999-12-31 00:00:00' ,@curdate&#x9;,&#x9;'Y' FROM &#xA;&#x9;&#x9;(&#xA;&#xA;&#x9;&#x9;MERGE DataWarehouseDW.dbo.normal_insur_zurich AS TARGET&#xA;&#x9;&#x9;USING &#xA;&#x9;&#x9;&#x9;&#x9;DataWarehouseDW.dbo.normal_insur_zurich_temp AS SOURCE &#xA;&#x9;&#x9;ON (TARGET.[Policy_Number] = SOURCE.[Policy_Number] AND&#xA;&#x9;&#x9;&#x9;TARGET.[Product_COBE_Code] = SOURCE.[Product_COBE_Code] AND&#xA;&#x9;&#x9;&#x9;TARGET.[FIRST_Name] = SOURCE.[FIRST_Name] AND &#xA;&#x9;&#x9;&#x9;TARGET.[LAST_Name] = SOURCE.[LAST_Name]) &#xA;&#x9;      &#xA;&#x9;WHEN NOT MATCHED BY TARGET THEN &#xA;&#x9;&#x9;INSERT &#xA;&#x9;&#x9;&#x9;([policy_number] ,[policy_status],[RCD],[product_COBE_code],[product_description],[agency_code],[agency_name],[title]&#xA;&#x9;&#x9;&#x9;,[first_name],[last_name],[address],[suburb],[state],[post_code],[gender],[date_of_birth],[age],[member_number],[annual_premium]&#xA;&#x9;&#x9;&#x9;,[sum_insured],[product_id],[CLIENT_ID],[member_flag],[member_status],[snapshot_date_key] &#xA;&#x9;&#x9;&#x9;,[dss_start_date],[dss_end_date],[dss_update_time],[dss_current_flag])&#xA;&#x9;&#x9;VALUES &#xA;&#x9;&#x9;&#x9;(SOURCE.[Policy_Number],SOURCE.[Policy_Status],CONVERT(datetime2(0),isnull(SOURCE.RCD,''),103) ,SOURCE.[Product_COBE_Code]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Product_Description]&#x9;,SOURCE.[Agency_Code],SOURCE.[Agency_Name],SOURCE.[Title],SOURCE.[First_Name]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Last_Name],SOURCE.[Address],SOURCE.[Suburb],SOURCE.[State],SOURCE.[Post_Code]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Gender],CONVERT(datetime2(0),isnull(SOURCE.DOB,''),103)&#xA;&#x9;&#x9;&#x9;&#x9;,Convert(int,isnull(SOURCE.[Age],0)),SOURCE.[Member_Number]&#xA;&#x9;&#x9;&#x9;&#x9;,cast(CAST(isnull(SOURCE.[Annual_Premium],0) as money) as decimal(18,2))&#xA;&#x9;&#x9;&#x9;&#x9;,cast(CAST(isnull(SOURCE.[Sum_Insured],0) as money) as decimal(18,2))&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Product_ID], SOURCE.[CLIENT_ID] ,SOURCE.[member_flag] ,SOURCE.[member_status] &#xA;&#x9;&#x9;&#x9;&#x9;,@snapshotdatekey,@curdate&#x9;,'2999-12-31 00:00:00' ,@curdate,'Y')&#xA;&#xA;&#x9;WHEN MATCHED AND target.dss_current_flag = 'Y' and &#xA;&#x9;&#x9;&#x9;CHECKSUM(&#xA;&#x9;&#x9;&#x9;&#x9;TARGET.[Policy_Status] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[RCD] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Product_Description]&#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Agency_Code]&#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Agency_Name]&#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Title] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Address] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Suburb] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[State] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Post_Code] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Gender] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[date_of_birth] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Age] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Member_Number] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Annual_Premium] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Sum_Insured] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[Product_ID] &#xA;&#x9;&#x9;&#x9;&#x9;, TARGET.[CLIENT_ID] &#xA;&#x9;&#x9;&#x9;&#x9;,  TARGET.[member_flag] &#xA;&#x9;&#x9;&#x9;&#x9;,  TARGET.[member_status] &#xA;&#x9;&#x9;&#x9;) &lt;&gt; CHECKSUM(&#xA;&#x9;&#x9;&#x9;&#x9;SOURCE.[Policy_Status]&#xA;&#x9;&#x9;&#x9;&#x9;,CONVERT(datetime2(0),isnull(SOURCE.RCD,''),103) &#xA;&#x9;&#x9;&#x9;&#x9;, SOURCE.[Product_Description]&#xA;&#x9;&#x9;&#x9;&#x9;, SOURCE.[Agency_Code]&#xA;&#x9;&#x9;&#x9;&#x9;, SOURCE.[Agency_Name]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Title]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Address]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Suburb]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[State]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Post_Code]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[Gender]&#xA;&#x9;&#x9;&#x9;&#x9;,CONVERT(datetime2(0),isnull(SOURCE.DOB,''),103)&#xA;&#x9;&#x9;&#x9;&#x9;, Convert(int,isnull(SOURCE.[Age],''))&#xA;&#x9;&#x9;&#x9;&#x9;, SOURCE.[Member_Number]&#xA;&#x9;&#x9;&#x9;&#x9;, cast(CAST(isnull(SOURCE.[Annual_Premium],0) as money) as decimal(18,2))&#xA;&#x9;&#x9;&#x9;&#x9;, cast(CAST(isnull(SOURCE.[Sum_Insured],0) as money) as decimal(18,2)) &#xA;&#x9;&#x9;&#x9;&#x9;, SOURCE.[Product_ID] &#xA;&#x9;&#x9;&#x9;&#x9;, SOURCE.[CLIENT_ID] &#xA;&#x9;&#x9;&#x9;&#x9;, SOURCE.[member_flag]&#xA;&#x9;&#x9;&#x9;&#x9;,SOURCE.[member_status]&#xA;&#x9;&#x9;&#x9;)&#x9;&#x9;&#x9;THEN                    &#xA;&#x9;&#x9; UPDATE SET&#xA;&#x9;&#x9;  target.dss_current_flag = 'N', -- expire the existing row&#xA;&#x9;&#x9;  target.dss_end_date =  DATEADD(SECOND, -1, @curdate)&#xA;&#x9;&#x9;&#x9;OUTPUT $action action_performed,   source.*&#xA;&#x9;) AS merge_output&#xA;&#x9;WHERE merge_output.action_performed  = 'UPDATE';&#xA;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Foreach file in the folder Loop Container\Update old records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Update old records"
+          DTS:DTSID="{ABAB49D3-67D3-442D-998C-902EC9820928}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Update old records"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{2D189FCA-6D8C-4BCC-A51A-483D9149BEC3}"
+              SQLTask:SqlStatementSource="Update DataWarehouseDW.dbo.normal_insur_zurich  set dss_current_flag = 'N' , dss_end_date = getdate()&#xA;&#x9;from DataWarehouseDW.dbo.normal_insur_zurich niz&#xA;&#x9;LEFT JOIN DataWarehouseDW.dbo.normal_insur_zurich_temp nizt&#xA;&#x9;&#x9;ON niz.[Policy_Number] = nizt.[Policy_Number] AND&#xA;&#x9;&#x9;&#x9;niz.[Product_COBE_Code] = nizt.[Product_COBE_Code] AND&#xA;&#x9;&#x9;&#x9;niz.[FIRST_Name] = nizt.[FIRST_Name] AND &#xA;&#x9;&#x9;&#x9;niz.[LAST_Name] = nizt.[LAST_Name]&#xA;&#x9;where isnull(nizt.[Policy_Number],'') = '' and isnull(nizt.[Product_COBE_Code],'') = ''&#xA;&#x9;AND isnull(nizt.[FIRST_Name],'') = '' and isnull(nizt.[LAST_Name],'') = ''&#xA;&#x9;and niz.dss_current_flag = 'Y'" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{B8C619F2-D80A-49DA-A61D-F37216FB9B3D}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Bulk Insert SQL Task"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Foreach file in the folder Loop Container\Delete Invalid data" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{94D7B556-DD11-4F09-A11B-1160C60371D7}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Create Temp Table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Foreach file in the folder Loop Container\Bulk Insert SQL Task" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{A3E4FF54-2011-4389-A36D-9F56430AF1F7}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Delete Invalid data"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\Foreach file in the folder Loop Container\Alter temp table" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{D65F8F65-FE2F-482D-A6D6-6205295145B9}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Merge data"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\Foreach file in the folder Loop Container\Update old records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{244AE93E-0F4B-41E8-9375-C63388C338EF}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Update old records"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\Foreach file in the folder Loop Container\Copy File to Archive" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{D4CD4093-7CC9-4428-81CD-31E06E4315F4}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Alter temp table"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\Foreach file in the folder Loop Container\Client Matching" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 6]"
+          DTS:CreationName=""
+          DTS:DTSID="{E74E6708-9F0C-4DEF-A4DB-629961AE01C6}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Client Matching"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 6"
+          DTS:To="Package\Foreach file in the folder Loop Container\Merge data" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 7]"
+          DTS:CreationName=""
+          DTS:DTSID="{DF2C2975-35CF-41B8-8524-40A7FF14FA5D}"
+          DTS:From="Package\Foreach file in the folder Loop Container\Copy File to Archive"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 7"
+          DTS:To="Package\Foreach file in the folder Loop Container\Delete File" />
+      </DTS:PrecedenceConstraints>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{D74F7999-58D7-4005-9392-4006877C1259}"
+          DTS:ObjectName="{D74F7999-58D7-4005-9392-4006877C1259}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::FileName" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154,44"
+          Id="Package\Foreach file in the folder Loop Container\Alter temp table"
+          TopLeft="90.6037735849058,279.867924528302" />
+        <NodeLayout
+          Size="168,44"
+          Id="Package\Foreach file in the folder Loop Container\Bulk Insert SQL Task"
+          TopLeft="84.8301886792453,123.037735849057" />
+        <NodeLayout
+          Size="155,44"
+          Id="Package\Foreach file in the folder Loop Container\Client Matching"
+          TopLeft="81.811320754717,359.377358490566" />
+        <NodeLayout
+          Size="172,42"
+          Id="Package\Foreach file in the folder Loop Container\Copy File to Archive"
+          TopLeft="65.5471698113208,590.679245283019" />
+        <NodeLayout
+          Size="167,44"
+          Id="Package\Foreach file in the folder Loop Container\Create Temp Table"
+          TopLeft="80.7547169811321,29.2641509433962" />
+        <NodeLayout
+          Size="128,42"
+          Id="Package\Foreach file in the folder Loop Container\Delete File"
+          TopLeft="71,667" />
+        <NodeLayout
+          Size="172,44"
+          Id="Package\Foreach file in the folder Loop Container\Delete Invalid data"
+          TopLeft="80.6792452830189,203.528301886792" />
+        <NodeLayout
+          Size="168,44"
+          Id="Package\Foreach file in the folder Loop Container\Merge data"
+          TopLeft="71.6603773584906,436.584905660377" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Foreach file in the folder Loop Container\Update old records"
+          TopLeft="70,520" />
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint]"
+          TopLeft="168.679245283019,166.962264150943">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-2.15094339622635,36.5660377358491"
+              Start="0,0"
+              End="-2.15094339622635,29.0660377358491">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.2641509433962" />
+                  <mssgle:LineSegment
+                    End="-2.15094339622635,18.2641509433962" />
+                  <mssgle:LineSegment
+                    End="-2.15094339622635,29.0660377358491" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 1]"
+          TopLeft="164.11320754717,73.188679245283">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="4.56603773584902,49.8490566037736"
+              Start="0,0"
+              End="4.56603773584902,42.3490566037736">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.9056603773585" />
+                  <mssgle:LineSegment
+                    End="4.56603773584902,24.9056603773585" />
+                  <mssgle:LineSegment
+                    End="4.56603773584902,42.3490566037736" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 2]"
+          TopLeft="166.528301886793,247.452830188679">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0.943396226415075,32.4150943396226"
+              Start="0,0"
+              End="0.943396226415075,24.9150943396226">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.188679245283" />
+                  <mssgle:LineSegment
+                    End="0.943396226415075,16.188679245283" />
+                  <mssgle:LineSegment
+                    End="0.943396226415075,24.9150943396226" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 3]"
+          TopLeft="153.580188679245,480.584905660377">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.415094339623"
+              Start="0,0"
+              End="0,31.915094339623">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.915094339623" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 4]"
+          TopLeft="152.02358490566,562">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.679245283019"
+              Start="0,0"
+              End="0,21.179245283019">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.179245283019" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 5]"
+          TopLeft="167.471698113208,323.792452830189">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-8.30188679245282,35.5849056603774"
+              Start="0,0"
+              End="-8.30188679245282,28.0849056603774">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.7735849056604" />
+                  <mssgle:LineSegment
+                    End="-8.30188679245282,17.7735849056604" />
+                  <mssgle:LineSegment
+                    End="-8.30188679245282,28.0849056603774" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 6]"
+          TopLeft="159.169811320755,403.301886792453">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-3.66037735849056,33.2830188679246"
+              Start="0,0"
+              End="-3.66037735849056,25.7830188679246">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6415094339623" />
+                  <mssgle:LineSegment
+                    End="-3.66037735849056,16.6415094339623" />
+                  <mssgle:LineSegment
+                    End="-3.66037735849056,25.7830188679246" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Foreach file in the folder Loop Container.PrecedenceConstraints[Constraint 7]"
+          TopLeft="151.547169811321,632.679245283019">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="9.9528301886792,34.320754716981"
+              Start="0,0"
+              End="9.9528301886792,26.820754716981">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,13.1603773584905" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,13.1603773584905"
+                    Point2="0,17.1603773584905"
+                    Point3="4,17.1603773584905" />
+                  <mssgle:LineSegment
+                    End="5.9528301886792,17.1603773584905" />
+                  <mssgle:CubicBezierSegment
+                    Point1="5.9528301886792,17.1603773584905"
+                    Point2="9.9528301886792,17.1603773584905"
+                    Point3="9.9528301886792,21.1603773584905" />
+                  <mssgle:LineSegment
+                    End="9.9528301886792,26.820754716981" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43.924528301886795"
+          IsExpanded="True"
+          PanelSize="312,764"
+          Size="312,808"
+          Id="Package\Foreach file in the folder Loop Container"
+          TopLeft="119.509433962264,40.4339622641509" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1433
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "SharePoint_ETL_Lists", "SharePoint_ETL_Lists\SharePoint_ETL_Lists.dtproj", "{F02B0B17-BA57-4A3E-8F52-00034CD6D4EB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F02B0B17-BA57-4A3E-8F52-00034CD6D4EB}.Development|Default.ActiveCfg = Development
+		{F02B0B17-BA57-4A3E-8F52-00034CD6D4EB}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B965388C-24F5-4755-9719-266AD210B42A}
+	EndGlobalSection
+EndGlobal
