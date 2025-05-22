@@ -1,0 +1,5 @@
+relationship 05a63afb-47f7-4d45-b587-a8b1d3f6e9a3
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'SalesLT Customer'.ModifiedDate
+	toColumn: LocalDateTable_a61abc0d-ece1-4689-a53d-9144dedc5281.Date
+

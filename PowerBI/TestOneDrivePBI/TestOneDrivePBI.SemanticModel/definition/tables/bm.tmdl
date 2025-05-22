@@ -1,0 +1,34 @@
+table bm
+	lineageTag: 8e32550d-87fa-4eac-86f8-ef46cfa19cb6
+
+	column Name
+		dataType: string
+		lineageTag: 628219c7-341c-4612-be48-f6e99f724c41
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: int64
+		formatString: 0
+		lineageTag: f5c9c170-d9d0-4ac4-b610-913141bc3661
+		summarizeBy: count
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	partition bm = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents("C:\Users\biju.mathew\OneDrive - Avanade\testreports\bm.csv"),[Delimiter=",", Columns=2, Encoding=1252, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Name", type text}, {"Id", Int64.Type}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_ResultType = Table
+
+	annotation PBI_NavigationStepName = Navigation
+
