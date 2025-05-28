@@ -1,0 +1,828 @@
+<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="7/24/2019 2:19:42 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="LT-HZHOU"
+  DTS:CreatorName="CORP\ZhouH"
+  DTS:DTSID="{848B799F-3742-4709-B4E5-231AD16905AD}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="14.0.3026.27"
+  DTS:LocaleID="3081"
+  DTS:ObjectName="SharePoint_ETL_Lists"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="1"
+  DTS:VersionBuild="116"
+  DTS:VersionGUID="{F208FDEF-F3CA-40A1-AF14-3D38035E0172}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[ODS]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F80E42CA-3BB3-4EC9-B13D-40AA1C6D2D85}"
+      DTS:ObjectName="ODS">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::ODS_SSIS_TARGET_DB]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::ODS_SSIS_TARGET_SERVER]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ns02db0v505;Initial Catalog=ODS;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[WSS_Content]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{84CEB800-19EB-4405-BCD9-DEAFA23A8D26}"
+      DTS:ObjectName="WSS_Content">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[User::SP_InitialCatalog]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ns01db0v013;Initial Catalog=WSS_Content_a66f37e6-a153-4a32-8974-22a07c035638;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{96BC030A-0BF8-4FEC-B9AF-DAA5044CF599}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Formlist_sql">
+      <DTS:VariableValue
+        DTS:DataType="8">select top 1 a.tp_ID, b.tp_Title,c.tp_Title as UserInfo,a.tp_ColumnSet,a.tp_Created,a.tp_Modified ,a.tp_ListId,a.tp_GUID       from  [dbo].UserData a   join dbo.AllLists b on a.tp_ListId=b.tp_ID and a.tp_SiteId=b.tp_SiteId   join dbo.UserInfo c on a.tp_Author=c.tp_ID and a.tp_SiteId=c.tp_SiteID</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4E8D3389-2D8A-4E9D-98B0-8B963DEEE62C}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SP_InitialCatalog">
+      <DTS:VariableValue
+        DTS:DataType="8">WSS_Content_a66f37e6-a153-4a32-8974-22a07c035638</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Generate Source SQL"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{CAC3974D-1204-44B1-B78C-E28D82CFC77F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Generate Source SQL"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F80E42CA-3BB3-4EC9-B13D-40AA1C6D2D85}"
+          SQLTask:SqlStatementSource="exec dwconfig.dbo.prc_ssis_SP_source  ?  output" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::Formlist_sql"
+            SQLTask:ParameterDirection="Output"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get SP database"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{79A93D08-40C3-4EEA-BF08-D6D0FE7BCB11}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get SP database"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F80E42CA-3BB3-4EC9-B13D-40AA1C6D2D85}"
+          SQLTask:SqlStatementSource="  select replace(portal_name,'SharePointDB:','') from DWConfig.dbo.cfg_SP_lists&#xA;  where id=1"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::SP_InitialCatalog" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Load Temp Table"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:DelayValidation="True"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5317FE33-87CF-435E-9C6C-B1E5662A6F61}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Temp Table"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Temp Table\OLE DB Destination"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE DB Destination"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[load_SP_AllUserData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Temp Table\OLE DB Destination.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[ODS]"
+                  connectionManagerRefId="Package.ConnectionManagers[ODS]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tp_GUID]"
+                      cachedDataType="guid"
+                      cachedName="tp_GUID"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_GUID]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_GUID]" />
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tp_Title]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="tp_Title"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_Title]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Title]" />
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[UserInfo]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="UserInfo"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserInfo]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[UserInfo]" />
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tp_ColumnSet]"
+                      cachedDataType="nText"
+                      cachedName="tp_ColumnSet"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_ColumnSet]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ColumnSet]" />
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tp_Created]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="tp_Created"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_Created]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Created]" />
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tp_Modified]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="tp_Modified"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_Modified]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Modified]" />
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tp_ListId]"
+                      cachedDataType="guid"
+                      cachedName="tp_ListId"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_ListId]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ListId]" />
+                    <inputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[tp_ID]"
+                      cachedDataType="i4"
+                      cachedName="tp_ID"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_ID]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_GUID]"
+                      dataType="guid"
+                      name="tp_GUID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_Title]"
+                      dataType="wstr"
+                      length="255"
+                      name="tp_Title" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[UserInfo]"
+                      dataType="wstr"
+                      length="255"
+                      name="UserInfo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_ColumnSet]"
+                      dataType="nText"
+                      name="tp_ColumnSet" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_Created]"
+                      dataType="dbTimeStamp"
+                      name="tp_Created" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_Modified]"
+                      dataType="dbTimeStamp"
+                      name="tp_Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_ListId]"
+                      dataType="guid"
+                      name="tp_ListId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[tp_ID]"
+                      dataType="i4"
+                      name="tp_ID" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Temp Table\OLE DB Destination.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Temp Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Temp Table\OLE DB Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Temp Table\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select  b.tp_Title,c.tp_Title as UserInfo,a.tp_ColumnSet,a.tp_Created,a.tp_Modified ,a.tp_ListId,a.tp_GUID
+  --,* 
+  from  [dbo].UserData a
+  join dbo.AllLists b on a.tp_ListId=b.tp_ID and a.tp_SiteId=b.tp_SiteId
+  join dbo.UserInfo c on a.tp_Author=c.tp_ID and a.tp_SiteId=c.tp_SiteID
+  where b.tp_Title in ('Business Glossary - Terms','Business Glossary - Dependency Matrix','Business Glossary - Asset')
+  and a.tp_ListId in 
+  (
+  select distinct a.tp_ListId
+  from  [dbo].UserData a
+  join dbo.AllLists b on a.tp_ListId=b.tp_ID and a.tp_SiteId=b.tp_SiteId 
+  where b.tp_Title in ('Business Glossary - Terms','Business Glossary - Dependency Matrix','Business Glossary - Asset')
+  and a.tp_Modified&gt;?
+  )</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable">User::Formlist_sql</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"0:Input",{0C857B37-D3F1-494A-831A-06DB00FB16B8};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Temp Table\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[WSS_Content]"
+                  connectionManagerRefId="Package.ConnectionManagers[WSS_Content]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_GUID]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_GUID]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_GUID]"
+                      name="tp_GUID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Title]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_Title]"
+                      length="255"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Title]"
+                      name="tp_Title"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[UserInfo]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[UserInfo]"
+                      length="255"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[UserInfo]"
+                      name="UserInfo"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ColumnSet]"
+                      dataType="nText"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_ColumnSet]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ColumnSet]"
+                      name="tp_ColumnSet"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Created]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_Created]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Created]"
+                      name="tp_Created"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Modified]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_Modified]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_Modified]"
+                      name="tp_Modified"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ListId]"
+                      dataType="guid"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_ListId]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ListId]"
+                      name="tp_ListId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_ID]"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].Columns[tp_ID]"
+                      name="tp_ID"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_GUID]"
+                      dataType="guid"
+                      name="tp_GUID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_Title]"
+                      dataType="wstr"
+                      length="255"
+                      name="tp_Title" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[UserInfo]"
+                      dataType="wstr"
+                      length="255"
+                      name="UserInfo" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_ColumnSet]"
+                      dataType="nText"
+                      name="tp_ColumnSet" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_Created]"
+                      dataType="dbTimeStamp"
+                      name="tp_Created" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_Modified]"
+                      dataType="dbTimeStamp"
+                      name="tp_Modified" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_ListId]"
+                      dataType="guid"
+                      name="tp_ListId" />
+                    <externalMetadataColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[tp_ID]"
+                      dataType="i4"
+                      name="tp_ID" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_ID]"
+                      dataType="i4"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_ID]"
+                      name="tp_ID" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_GUID]"
+                      dataType="guid"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_GUID]"
+                      name="tp_GUID" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_Title]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_Title]"
+                      name="tp_Title" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[UserInfo]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[UserInfo]"
+                      name="UserInfo" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_ColumnSet]"
+                      dataType="nText"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_ColumnSet]"
+                      name="tp_ColumnSet" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_Created]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_Created]"
+                      name="tp_Created" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_Modified]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_Modified]"
+                      name="tp_Modified" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_ListId]"
+                      dataType="guid"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[tp_ListId]"
+                      name="tp_ListId" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Temp Table.Paths[OLE DB Source Output]"
+              endId="Package\Load Temp Table\OLE DB Destination.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Temp Table\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Merge"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{32A5D4DD-A5DD-48DD-95C1-40AA320FB33C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Merge"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F80E42CA-3BB3-4EC9-B13D-40AA1C6D2D85}"
+          SQLTask:SqlStatementSource="exec dbo.prc_load_SP_AllUserData" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Temp Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{23E8E76B-52D8-4CD6-8E5B-C7946300D941}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Temp Table"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{F80E42CA-3BB3-4EC9-B13D-40AA1C6D2D85}"
+          SQLTask:SqlStatementSource=" truncate table ods.dbo.load_SP_AllUserData" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{967CB46D-48E3-4545-9E96-0B7BA8A6B181}"
+      DTS:From="Package\Truncate Temp Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Load Temp Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{4CC5F3E6-53FC-44D6-8D06-0D0EB8BF7C42}"
+      DTS:From="Package\Generate Source SQL"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Truncate Temp Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{D614897A-3AB7-4072-845A-F023DAA47346}"
+      DTS:From="Package\Load Temp Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Merge" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 5]"
+      DTS:CreationName=""
+      DTS:DTSID="{21BA022D-B3B3-4847-A951-BED88FAC2D46}"
+      DTS:From="Package\Get SP database"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 5"
+      DTS:To="Package\Generate Source SQL" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="180,43"
+          Id="Package\Generate Source SQL"
+          TopLeft="100.833331830799,131.227773984836" />
+        <NodeLayout
+          Size="157,42"
+          Id="Package\Get SP database"
+          TopLeft="108.416665133089,46.1611089376268" />
+        <NodeLayout
+          Size="161,43"
+          Id="Package\Load Temp Table"
+          TopLeft="107.083331737667,303.261104241973" />
+        <NodeLayout
+          Size="158,43"
+          Id="Package\Merge"
+          TopLeft="109.583331700414,374.594437420336" />
+        <NodeLayout
+          Size="180,43"
+          Id="Package\Truncate Temp Table"
+          TopLeft="99.5833318494264,220.927772380875" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="188.66666512688,263.594439047542">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.6666651944313"
+              Start="0,0"
+              End="0,32.1666651944313">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.1666651944313" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="190.208331840113,173.894440651502">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47.0333317293726"
+              Start="0,0"
+              End="0,39.5333317293726">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5333317293726" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="188.166665052374,345.92777090864">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.6666665116963"
+              Start="0,0"
+              End="0,21.1666665116963">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.1666665116963" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 5]"
+          TopLeft="188.958331815277,88.1611089376268">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.0666650472083"
+              Start="0,0"
+              End="0,35.5666650472083">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35.5666650472083" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Temp Table">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150.666666666667,42.6666666666667"
+          Id="Package\Load Temp Table\OLE DB Source"
+          TopLeft="384.000000099341,223.099999837279" />
+        <NodeLayout
+          Size="172,42.6666666666667"
+          Id="Package\Load Temp Table\OLE DB Destination"
+          TopLeft="379.333333333333,351.333333333333" />
+        <EdgeLayout
+          Id="Package\Load Temp Table.Paths[OLE DB Source Output]"
+          TopLeft="462.333333383004,265.766666503946">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,85.5666668293873"
+              Start="0,0"
+              End="0,78.0666668293873">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,78.0666668293873" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-18.28857421875,34.3101888834437,36.5771484375,9.4462890625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Temp Table\OLE DB Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Temp Table\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

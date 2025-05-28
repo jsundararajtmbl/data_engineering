@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{159641D6-6404-4A2A-AE62-294DE0FE8301}") = "Equifax_DP3", "Equifax_DP3\Equifax_DP3.dtproj", "{2CF097B5-ADCF-4B91-B048-88886014E6A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Development|Default = Development|Default
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CF097B5-ADCF-4B91-B048-88886014E6A4}.Development|Default.ActiveCfg = Development
+		{2CF097B5-ADCF-4B91-B048-88886014E6A4}.Development|Default.Build.0 = Development
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35A1AE57-B805-481E-B707-5171ED125D12}
+	EndGlobalSection
+EndGlobal
